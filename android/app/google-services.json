@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "296426109935",
+    "firebase_url": "https://studentcoloco-9c0d7.firebaseio.com",
+    "project_id": "studentcoloco-9c0d7",
+    "storage_bucket": "studentcoloco-9c0d7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:296426109935:android:89ca8b91e5e8b7c172541a",
+        "android_client_info": {
+          "package_name": "com.mehdi.student_coloco_ghoulami"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "296426109935-naokocqhq8e6h2k9r3i219pq95u1msvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-k9AG9szgwCw7L4Qt-i5hmX18Dlecwpc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "296426109935-naokocqhq8e6h2k9r3i219pq95u1msvu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
