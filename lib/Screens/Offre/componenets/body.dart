@@ -1,3 +1,4 @@
+import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:student_coloco_ghoulami/Services/auth.dart';
@@ -11,6 +12,8 @@ import 'package:student_coloco_ghoulami/util/constants.dart';
 import '../listOffre_screen.dart';
 import 'background.dart';
 import 'facilities_divider.dart';
+import 'package:multi_image_picker/multi_image_picker.dart';
+
 
 class Body extends StatefulWidget {
   @override
@@ -23,6 +26,8 @@ class _BodyState extends State<Body> {
   String error = '';
   Offre offre = Offre();
   bool loading = false;
+  List<Asset> images = List<Asset>();
+
   @override
   Widget build(BuildContext context) {
     UserServices().getUserId().then((value){
@@ -49,14 +54,14 @@ class _BodyState extends State<Body> {
                         children: [
                           RoundedInputField(
                             hintText: "Title",
-                            validator: (val) => val.isEmpty ? 'Please enter a Title' : null,
+                            validator: (val) => val.isEmpty ? 'Please enter the Title' : null,
                             onChanged: (value) {
                               offre.title = value;
                             },
                           ),
                           RoundedInputField(
                             hintText: "Adresse",
-                            validator: (val) => val.isEmpty ? 'Please enter a Adresse' : null,
+                            validator: (val) => val.isEmpty ? 'Please enter the Adresse' : null,
                             onChanged: (value) {
                               offre.adresse= value;
                             },
@@ -93,7 +98,7 @@ class _BodyState extends State<Body> {
                           ),
                           RoundedInputField(
                             validator: (val) =>
-                                val.isEmpty ? 'Please entre an Phone number' : null,
+                                val.isEmpty ? 'Please entre a Phone number' : null,
                             hintText: "Phone",
                             onChanged: (value) {
                               offre.phone_number = value;
@@ -211,6 +216,19 @@ class _BodyState extends State<Body> {
                             ),
                           ),
                           FacilitiesDivider(
+                            text: "pictures",
+                          ),
+                          RoundedButton(
+                            text: "Pick images",
+                            press: loadAssets,
+                          ),
+                          images.length==0 ?SizedBox(
+                            height: 0,
+                          ):SizedBox(
+                            height: 150.0,
+                            child: buildGridView(),
+                          ),
+                          FacilitiesDivider(
                             text: "Location",
                           ),
                           RoundedButton(
@@ -218,7 +236,6 @@ class _BodyState extends State<Body> {
                             press: () async {
                               if (_formKey.currentState.validate()) {
                                 setState(() => loading = true);
-
                                 await OffreServices().addOffreData(offre).then((value){
                                   if (value == null) {
                                     setState(() {
@@ -227,8 +244,8 @@ class _BodyState extends State<Body> {
                                     });
                                   }
                                 });
+                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ListOffer()));
                               }
-                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ListOffer()));
                             },
                           ),
                         ],
@@ -239,5 +256,48 @@ class _BodyState extends State<Body> {
               ),
             ),
           );
+  }
+
+  Widget buildGridView() {
+    return GridView.count(
+      crossAxisCount: 3,
+      children: List.generate(images.length, (index) {
+        Asset asset = images[index];
+        return AssetThumb(
+          asset: asset,
+          width: 300,
+          height: 300,
+        );
+      }),
+    );
+  }
+
+  Future<void> loadAssets() async {
+    List<Asset> resultList = List<Asset>();
+    String error = 'No Error Dectected';
+
+    try {
+      resultList = await MultiImagePicker.pickImages(
+        maxImages: 3,
+        enableCamera: true,
+        selectedAssets: images,
+        cupertinoOptions: CupertinoOptions(takePhotoIcon: "chat"),
+        materialOptions: MaterialOptions(
+          actionBarColor: "#abcdef",
+          actionBarTitle: "Pick images",
+          allViewTitle: "All Photos",
+          useDetailsView: false,
+          selectCircleStrokeColor: "#000000",
+        ),
+      );
+    } on Exception catch (e) {
+      error = e.toString();
+    }
+
+    if (!mounted) return;
+
+    setState(() {
+      images = resultList;
+    });
   }
 }
