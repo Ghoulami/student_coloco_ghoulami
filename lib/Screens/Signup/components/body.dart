@@ -79,7 +79,7 @@ class _BodyState extends State<Body> {
                         setState(() => loading = true);
                         dynamic result = await _auth.registerWithEmailAndPassword(user.email.trim(), user.password);
 
-                        await UserServices(uid: result.uid).updateUserData(user);
+                        await UserServices(uid: result.uid).addUserData(user);
 
                         if(result == null) {
                           setState(() {

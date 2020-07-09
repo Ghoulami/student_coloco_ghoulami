@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:student_coloco_ghoulami/Screens/Offre/listOffre.dart';
+import 'package:student_coloco_ghoulami/Screens/Offre/addOffre_screen.dart';
+import 'package:student_coloco_ghoulami/Screens/Offre/listOffre_screen.dart';
 import 'package:student_coloco_ghoulami/Services/auth.dart';
 import 'package:student_coloco_ghoulami/components/loading.dart';
 import 'package:student_coloco_ghoulami/util/constants.dart';
@@ -40,7 +41,16 @@ class _HomeScreenState extends State<HomeScreen> {
                         title: "Add offer",
                         color: kIconsColor,
                       ),
-                      onTap: (){},
+                      onTap: (){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return AddOfferScreen();
+                            },
+                          ),
+                        );
+                      },
                     ),
                     InkWell(
                       child: ItemCard(
