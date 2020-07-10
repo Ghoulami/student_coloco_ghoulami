@@ -31,15 +31,15 @@ class OffreServices {
     return ref.documentID;
   }
 
-  Future<Uri> uploadPic(Asset image) async {
-
-    // ignore: deprecated_member_use
-    ByteData byteData = await image.requestOriginal();
+  Future<String> uploadPic(Asset image) async {
+    ByteData byteData;
+    await image.getByteData().then((value) => byteData = value);
     List<int> imageData = byteData.buffer.asUint8List();
-    StorageReference ref = FirebaseStorage.instance.ref().child("images/");
+    StorageReference ref = FirebaseStorage.instance.ref().child(image.name);
     StorageUploadTask uploadTask = ref.putData(imageData);
 
-    return await (await uploadTask.onComplete).ref.getDownloadURL();
-
+    var dowurl = await (await uploadTask.onComplete).ref.getDownloadURL();
+    String url = dowurl.toString();
+    return url;
   }
 }
