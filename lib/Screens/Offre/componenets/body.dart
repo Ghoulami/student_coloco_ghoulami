@@ -236,6 +236,9 @@ class _BodyState extends State<Body> {
                             press: () async {
                               if (_formKey.currentState.validate()) {
                                 setState(() => loading = true);
+                                images.forEach((element) async{
+                                  offre.images.add(await OffreServices().uploadPic(element).toString());
+                                });
                                 await OffreServices().addOffreData(offre).then((value){
                                   if (value == null) {
                                     setState(() {
