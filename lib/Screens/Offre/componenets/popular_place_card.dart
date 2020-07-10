@@ -1,10 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:student_coloco_ghoulami/models/room.dart';
 import 'package:student_coloco_ghoulami/util/constants.dart';
 
 class PopularPlaceCard extends StatelessWidget {
-  final Room room;
-  PopularPlaceCard({this.room});
+  final DocumentSnapshot offre;
+  PopularPlaceCard({ this.offre});
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +29,8 @@ class PopularPlaceCard extends StatelessWidget {
                   bottom: 12.0,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(12.0),
-                    child: Image.asset(
-                      room.image,
+                    child: Image.network(
+                      offre["images"][0],
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -57,7 +57,7 @@ class PopularPlaceCard extends StatelessWidget {
                             color: kWhite,
                           ),
                           SizedBox(width: 3.0),
-                          Text(room.rating, style: kRatingStyle)
+                          Text("4.5", style: kRatingStyle)
                         ],
                       ),
                     ),
@@ -73,12 +73,12 @@ class PopularPlaceCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text(room.name, style: kTitleStyle, maxLines: 1),
-                  Text(room.place, style: kSubtitleStyle),
+                  Text(offre["title"], style: kTitleStyle, maxLines: 1),
+                  Text(offre["adresse"], style: kSubtitleStyle),
                   Row(
                     children: <Widget>[
                       Text(
-                        "${room.width}ft | ${room.height}ft",
+                        offre["superficie"].toString()+"m²",
                         maxLines: 1,
                         style: kSubtitleStyle.copyWith(
                           color: kBlack.withOpacity(1.0),
@@ -87,7 +87,7 @@ class PopularPlaceCard extends StatelessWidget {
                       ),
                       Spacer(),
                       Text(
-                        "\$ ${room.price}.00",
+                        "\$ ${offre["prix"]}.00",
                         style: kTitleStyle.copyWith(color: kBlue),
                       )
                     ],

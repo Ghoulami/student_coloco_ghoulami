@@ -1,10 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:student_coloco_ghoulami/models/offre.dart';
 import 'package:student_coloco_ghoulami/models/room.dart';
 import 'package:student_coloco_ghoulami/util/constants.dart';
 
 import 'componenets/popular_place_card.dart';
 import 'componenets/recomended_card.dart';
-
 
 class ListOffer extends StatefulWidget {
   @override
@@ -14,9 +15,22 @@ class ListOffer extends StatefulWidget {
 class _ListOfferState extends State<ListOffer> {
   String dropdownBeds = '2-4 Beds';
   String dropdownFilter = 'Short by: Price';
+  final databaseReference = Firestore.instance;
+  List<Offre> offers = List<Offre>();
+
+  Future<QuerySnapshot> getData() async {
+    return await databaseReference.collection("Offers").getDocuments();
+  }
 
   @override
   Widget build(BuildContext context) {
+    getData().then((QuerySnapshot snapshot) {
+      snapshot.documents.forEach((offre) {
+        this.offers.add(new Offre.fromJson(offre.data));
+      });
+    });
+
+    print(offers.length);
     return Scaffold(
       backgroundColor: kWhite,
       appBar: PreferredSize(
@@ -25,12 +39,11 @@ class _ListOfferState extends State<ListOffer> {
           child: Column(
             children: <Widget>[
               ListTile(
-                title: Text(
-                  "My Location",
+                title: Text("${new DateTime.now().day} / ${new DateTime.now().month} / ${new DateTime.now().year}",
                   style: kSubtitleStyle.copyWith(height: 2.0),
                 ),
                 subtitle: Text(
-                  "Jakarta, Indonesia",
+                  "Find your rant",
                   style: kTitleStyle.copyWith(height: 1.5),
                 ),
                 trailing: Icon(Icons.notifications, color: kBlack),
@@ -60,10 +73,10 @@ class _ListOfferState extends State<ListOffer> {
                       items: ["2-4 Beds", "2 Beds", "3 Beds", "4 Beds"]
                           .map(
                             (e) => DropdownMenuItem(
-                          value: e,
-                          child: Text(e),
-                        ),
-                      )
+                              value: e,
+                              child: Text(e),
+                            ),
+                          )
                           .toList(),
                     ),
                   ),
@@ -95,10 +108,10 @@ class _ListOfferState extends State<ListOffer> {
                       ]
                           .map(
                             (e) => DropdownMenuItem(
-                          value: e,
-                          child: Text(e),
-                        ),
-                      )
+                              value: e,
+                              child: Text(e),
+                            ),
+                          )
                           .toList(),
                     ),
                   ),
@@ -129,17 +142,27 @@ class _ListOfferState extends State<ListOffer> {
               ),
               SizedBox(height: 15.0),
               ListTile(
-                title: Text("Popular Place", style: kTitleStyle),
-                trailing: Text("View All", style: kTrailingStyle),
+                title: Text("All Place", style: kTitleStyle),
               ),
-              ListView.builder(
-                itemCount: roomList.length,
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                physics: ScrollPhysics(),
-                itemBuilder: (context, index) {
-                  var room = roomList[index];
-                  return PopularPlaceCard(room: room);
+              StreamBuilder<QuerySnapshot>(
+                stream: Firestore.instance.collection('Offers').snapshots(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.hasError) return CircularProgressIndicator();
+                  switch (snapshot.connectionState) {
+                    case ConnectionState.waiting:
+                      return CircularProgressIndicator();
+                    default:
+                      return ListView.builder(
+                          itemCount: snapshot.data.documents.length,
+                          scrollDirection: Axis.vertical,
+                          shrinkWrap: true,
+                          physics: ScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            var offre = snapshot.data.documents[index];
+                            return PopularPlaceCard(offre: offre);
+                          });
+                  }
                 },
               ),
             ],

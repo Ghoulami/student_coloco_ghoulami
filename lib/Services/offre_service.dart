@@ -11,7 +11,7 @@ class OffreServices {
   final CollectionReference offerCollection = Firestore.instance.collection('Offers');
   final FirebaseStorage storage = FirebaseStorage.instance;
 
-  Future<String> addOffreData(Offre offre) async {
+  Future<String> addOffreData(Offre offre, List<String> imagesUri) async {
     DocumentReference ref = await offerCollection.add({
      "owner":offre.owner,
      "title":offre.title,
@@ -26,7 +26,7 @@ class OffreServices {
      "food":offre.food,
      "bus":offre.bus,
       "data" : offre.now,
-      "images":offre.images
+      "images":imagesUri
     });
     return ref.documentID;
   }

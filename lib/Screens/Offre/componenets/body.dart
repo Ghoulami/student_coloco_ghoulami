@@ -26,6 +26,8 @@ class _BodyState extends State<Body> {
   Offre offre = Offre();
   bool loading = false;
   List<Asset> images = List<Asset>();
+  List<String> imagesUri = List<String>();
+  bool done = false;
 
   @override
   Widget build(BuildContext context) {
@@ -230,19 +232,12 @@ class _BodyState extends State<Body> {
                           FacilitiesDivider(
                             text: "Location",
                           ),
-                          RoundedButton(
+                          done ? RoundedButton(
                             text: "Submit",
                             press: () async {
                               if (_formKey.currentState.validate()) {
                                 setState(() => loading = true);
-                                images.forEach((element) async{
-                                  await OffreServices().uploadPic(element).then((value){
-                                    if(value != null){
-                                      offre.images.add(value);
-                                    }
-                                  });
-                                });
-                                await OffreServices().addOffreData(offre).then((value){
+                                await OffreServices().addOffreData(offre , imagesUri).then((value){
                                   if (value == null) {
                                     setState(() {
                                       error = 'Please supply a valid data';
@@ -253,7 +248,7 @@ class _BodyState extends State<Body> {
                                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ListOffer()));
                               }
                             },
-                          ),
+                          ):CircularProgressIndicator()
                         ],
                       ),
                     ),
@@ -304,6 +299,17 @@ class _BodyState extends State<Body> {
 
     setState(() {
       images = resultList;
+      images.forEach((element) {
+        OffreServices().uploadPic(element).then((value){
+          if(value != null){
+            print(value);
+            imagesUri.add(value);
+            if (element == images.last){
+              this.done = true;
+            }
+          }
+        });
+      });
     });
   }
 }
