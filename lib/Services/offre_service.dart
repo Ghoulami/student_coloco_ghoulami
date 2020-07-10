@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -32,18 +33,13 @@ class OffreServices {
 
   Future<Uri> uploadPic(Asset image) async {
 
-    //Create a reference to the location you want to upload to in firebase
-    StorageReference reference = storage.ref().child("images/");
+    // ignore: deprecated_member_use
+    ByteData byteData = await image.requestOriginal();
+    List<int> imageData = byteData.buffer.asUint8List();
+    StorageReference ref = FirebaseStorage.instance.ref().child("images/");
+    StorageUploadTask uploadTask = ref.putData(imageData);
 
-    //Upload the file to firebase
-    StorageUploadTask uploadTask = reference.putFile(image as File);
+    return await (await uploadTask.onComplete).ref.getDownloadURL();
 
-    // Waits till the file is uploaded then stores the download url
-    var storageTaskSnapshot = await uploadTask.onComplete;
-    var downloadUrl = await storageTaskSnapshot.ref.getDownloadURL();
-
-    print(downloadUrl);
-    //returns the download url
-    return downloadUrl;
   }
 }

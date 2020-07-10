@@ -1,4 +1,3 @@
-import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:student_coloco_ghoulami/Services/auth.dart';
@@ -236,8 +235,8 @@ class _BodyState extends State<Body> {
                             press: () async {
                               if (_formKey.currentState.validate()) {
                                 setState(() => loading = true);
-                                images.forEach((element) async{
-                                  offre.images.add(await OffreServices().uploadPic(element).toString());
+                                images.forEach((element){
+                                  offre.images.add(OffreServices().uploadPic(element).toString());
                                 });
                                 await OffreServices().addOffreData(offre).then((value){
                                   if (value == null) {
