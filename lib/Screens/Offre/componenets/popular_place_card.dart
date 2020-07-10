@@ -89,7 +89,7 @@ class PopularPlaceCard extends StatelessWidget {
                         ),
                         Spacer(),
                         Text(
-                          "\$ ${offre["prix"]}.00",
+                          "${offre["prix"]}MD",
                           style: kTitleStyle.copyWith(color: kBlue),
                         )
                       ],
