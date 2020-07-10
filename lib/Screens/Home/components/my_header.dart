@@ -20,7 +20,7 @@ class _MyHeaderState extends State<MyHeader> {
       clipper: MyClipper(),
       child: Container(
         padding: EdgeInsets.only(left: 30, top: 20, right: 20),
-        height: 300,
+        height: 230,
         width: double.infinity,
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -36,11 +36,7 @@ class _MyHeaderState extends State<MyHeader> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            GestureDetector(
-              onTap: () {},
-              child: SvgPicture.asset("assets/icons/menu.svg" ,),
-            ),
-            SizedBox(height: 50),
+            SizedBox(height: 10),
             Expanded(
               child: Stack(
                 children: <Widget>[
