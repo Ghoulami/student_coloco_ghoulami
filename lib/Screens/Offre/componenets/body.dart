@@ -110,111 +110,108 @@ class _BodyState extends State<Body> {
                           FacilitiesDivider(
                             text: "Facilities",
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      CheckboxListTile(
-                                        title: Text("Food"),
-                                        value: offre.food,
-                                        activeColor: kPrimaryColor,
-                                        checkColor: kPrimaryLightColor,
-                                        onChanged: (bool value) {
-                                          setState(() {
-                                            offre.food = value;
-                                            print(offre.food,);
-                                          });
-                                        },
-                                        selected: offre.food,
-                                        secondary: Icon(Icons.fastfood),
-                                        controlAffinity:
-                                        ListTileControlAffinity.trailing,
-                                      ),
-                                      CheckboxListTile(
-                                        title: Text("Gym"),
-                                        value: offre.gym,
-                                        activeColor: kPrimaryColor,
-                                        checkColor: kPrimaryLightColor,
-                                        onChanged: (bool value) {
-                                          setState(() {
-                                            offre.gym = value;
-                                            print(offre.gym,);
-                                          });
-                                        },
-                                        selected: offre.gym,
-                                        secondary: Icon(Icons.fitness_center,),
-                                        controlAffinity:
-                                        ListTileControlAffinity.trailing,
-                                      ),
-                                      CheckboxListTile(
-                                        title: Text("Bus"),
-                                        value: offre.bus,
-                                        activeColor: kPrimaryColor,
-                                        checkColor: kPrimaryLightColor,
-                                        onChanged: (bool value) {
-                                          setState(() {
-                                            offre.bus = value;
-                                            print(offre.bus);
-                                          });
-                                        },
-                                        selected: offre.bus,
-                                        secondary: Icon(Icons.directions_bus),
-                                        controlAffinity:
-                                        ListTileControlAffinity.trailing,
-                                      ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    CheckboxListTile(
+                                      title: Text("Food"),
+                                      value: offre.food,
+                                      activeColor: kPrimaryColor,
+                                      checkColor: kPrimaryLightColor,
+                                      onChanged: (bool value) {
+                                        setState(() {
+                                          offre.food = value;
+                                          print(offre.food,);
+                                        });
+                                      },
+                                      selected: offre.food,
+                                      secondary: Icon(Icons.fastfood),
+                                      controlAffinity:
+                                      ListTileControlAffinity.trailing,
+                                    ),
+                                    CheckboxListTile(
+                                      title: Text("Gym"),
+                                      value: offre.gym,
+                                      activeColor: kPrimaryColor,
+                                      checkColor: kPrimaryLightColor,
+                                      onChanged: (bool value) {
+                                        setState(() {
+                                          offre.gym = value;
+                                          print(offre.gym,);
+                                        });
+                                      },
+                                      selected: offre.gym,
+                                      secondary: Icon(Icons.fitness_center,),
+                                      controlAffinity:
+                                      ListTileControlAffinity.trailing,
+                                    ),
+                                    CheckboxListTile(
+                                      title: Text("Bus"),
+                                      value: offre.bus,
+                                      activeColor: kPrimaryColor,
+                                      checkColor: kPrimaryLightColor,
+                                      onChanged: (bool value) {
+                                        setState(() {
+                                          offre.bus = value;
+                                          print(offre.bus);
+                                        });
+                                      },
+                                      selected: offre.bus,
+                                      secondary: Icon(Icons.directions_bus),
+                                      controlAffinity:
+                                      ListTileControlAffinity.trailing,
+                                    ),
 
-                                    ],
-                                  ),
+                                  ],
                                 ),
-                                VerticalDivider(
-                                    color: Color(0xFFD9D9D9), width: 22),
-                                Expanded(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      CheckboxListTile(
-                                        title: Text("WiFi"),
-                                        value: offre.wifi,
-                                        activeColor: kPrimaryColor,
-                                        checkColor: kPrimaryLightColor,
-                                        onChanged: (bool value) {
-                                          setState(() {
-                                            offre.wifi = value;
-                                            print(offre.wifi);
-                                          });
-                                        },
-                                        selected: offre.wifi,
-                                        secondary: Icon(Icons.wifi),
-                                        controlAffinity:
-                                            ListTileControlAffinity.trailing,
-                                      ),
-                                      CheckboxListTile(
-                                        title: Text("Lave-ligne"),
-                                        value: offre.lave_ligne,
-                                        activeColor: kPrimaryColor,
-                                        checkColor: kPrimaryLightColor,
-                                        onChanged: (bool value) {
-                                          setState(() {
-                                            offre.lave_ligne = value;
-                                            print(offre.lave_ligne);
-                                          });
-                                        },
-                                        selected: offre.lave_ligne,
-                                        secondary: Icon(Icons.toys),
-                                        controlAffinity:
-                                            ListTileControlAffinity.trailing,
-                                      ),
-                                    ],
-                                  ),
+                              ),
+                              VerticalDivider(
+                                  color: Color(0xFFD9D9D9), width: 0),
+                              Expanded(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    CheckboxListTile(
+                                      title: Text("WiFi"),
+                                      value: offre.wifi,
+                                      activeColor: kPrimaryColor,
+                                      checkColor: kPrimaryLightColor,
+                                      onChanged: (bool value) {
+                                        setState(() {
+                                          offre.wifi = value;
+                                          print(offre.wifi);
+                                        });
+                                      },
+                                      selected: offre.wifi,
+                                      secondary: Icon(Icons.wifi),
+                                      controlAffinity:
+                                      ListTileControlAffinity.trailing,
+                                    ),
+                                    CheckboxListTile(
+                                      title: Text("Laundry"),
+                                      value: offre.lave_ligne,
+                                      activeColor: kPrimaryColor,
+                                      checkColor: kPrimaryLightColor,
+                                      onChanged: (bool value) {
+                                        setState(() {
+                                          offre.lave_ligne = value;
+                                          print(offre.lave_ligne);
+                                        });
+                                      },
+                                      selected: offre.lave_ligne,
+                                      secondary: Icon(Icons.toys),
+                                      controlAffinity:
+                                      ListTileControlAffinity.trailing,
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                           FacilitiesDivider(
                             text: "pictures",
