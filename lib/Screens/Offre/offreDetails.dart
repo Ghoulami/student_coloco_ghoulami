@@ -225,24 +225,26 @@ class FacilityCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 70,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.0),
           border: Border.all(color: Colors.black)
       ),
       child: Padding(
         padding:  EdgeInsets.symmetric(
-            vertical: 1 * SizeConfig.heightMultiplier,
-            horizontal: 4 * SizeConfig.widthMultiplier
+            horizontal: 2 * SizeConfig.widthMultiplier
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Image.asset(asset, height: 10 * SizeConfig.imageSizeMultiplier, width: 10 * SizeConfig.imageSizeMultiplier,),
             SizedBox(height: 1 * SizeConfig.heightMultiplier,),
-            Text(name, style: TextStyle(
-                fontSize: 1.4 * SizeConfig.textMultiplier,
-                fontWeight: FontWeight.w600
-            ),)
+            Expanded(
+              child: Text(name, style: TextStyle(
+                  fontSize: 1.4 * SizeConfig.textMultiplier,
+                  fontWeight: FontWeight.w600
+              ),),
+            )
           ],
         ),
       ),
