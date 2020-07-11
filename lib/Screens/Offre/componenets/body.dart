@@ -56,6 +56,7 @@ class _BodyState extends State<Body> {
                           RoundedInputField(
                             hintText: "Title",
                             validator: (val) => val.isEmpty ? 'Please enter the Title' : null,
+                            icon: Icons.title,
                             onChanged: (value) {
                               offre.title = value;
                             },
@@ -63,6 +64,7 @@ class _BodyState extends State<Body> {
                           RoundedInputField(
                             hintText: "Adresse",
                             validator: (val) => val.isEmpty ? 'Please enter the Adresse' : null,
+                            icon: Icons.location_on,
                             onChanged: (value) {
                               offre.adresse= value;
                             },
@@ -71,6 +73,7 @@ class _BodyState extends State<Body> {
                             hintText: "Superficie",
                             validator: (val) =>
                                 val.isEmpty ? 'Please enter the Superficie' : null,
+                            icon: Icons.border_clear,
                             onChanged: (value) {
                               offre.superficie = double.parse(value);
                             },
@@ -84,6 +87,7 @@ class _BodyState extends State<Body> {
                             onChanged: (value) {
                               offre.prix = double.parse(value);
                             },
+                            icon: Icons.attach_money,
                             keyboardType:
                                 TextInputType.numberWithOptions(decimal: true),
                           ),
@@ -91,6 +95,7 @@ class _BodyState extends State<Body> {
                             validator: (val) =>
                                 val.isEmpty ? 'Please enter the capacité' : null,
                             hintText: "capacité",
+                            icon: Icons.face,
                             onChanged: (value) {
                               offre.capacite = int.parse(value);
                             },
@@ -101,6 +106,7 @@ class _BodyState extends State<Body> {
                             validator: (val) =>
                                 val.isEmpty ? 'Please entre a Phone number' : null,
                             hintText: "Phone",
+                            icon: Icons.phone_android,
                             onChanged: (value) {
                               offre.phone_number = value;
                             },

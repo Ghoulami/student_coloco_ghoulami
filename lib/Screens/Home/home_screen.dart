@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:student_coloco_ghoulami/Screens/Demand/addDemand_screen.dart';
+import 'package:student_coloco_ghoulami/Screens/Demand/listDemand_screen.dart';
 import 'package:student_coloco_ghoulami/Screens/Offre/addOffre_screen.dart';
 import 'package:student_coloco_ghoulami/Screens/Offre/listOffre_screen.dart';
 import 'package:student_coloco_ghoulami/Services/auth.dart';
 import 'package:student_coloco_ghoulami/components/loading.dart';
 import 'package:student_coloco_ghoulami/util/constants.dart';
+import '../Offre/listOffre_screen.dart';
 import 'components/Item_Card.dart';
 import 'components/my_header.dart';
 
@@ -64,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           context,
                           MaterialPageRoute(
                             builder: (context) {
-                              return AddDemandScreen();
+                              return ListOffer();
                             },
                           ),
                         );
@@ -87,7 +89,16 @@ class _HomeScreenState extends State<HomeScreen> {
                         title: "Add demand",
                         color: kIconsColor,
                       ),
-                      onTap: (){},
+                      onTap: (){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return AddDemandScreen();
+                            },
+                          ),
+                        );
+                      },
                     ),
                     InkWell(
                       child: ItemCard(
@@ -95,9 +106,16 @@ class _HomeScreenState extends State<HomeScreen> {
                         title: "List demands",
                         color: kIconsColor,
                       ),
-                        onTap: () {
-
-                        },
+                      onTap: (){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return ListDemand();
+                            },
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),

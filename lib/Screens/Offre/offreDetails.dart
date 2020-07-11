@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:student_coloco_ghoulami/util/constants.dart';
+import '../../Services/offre_service.dart';
+import '../../Services/user_service.dart';
 import 'componenets/SizeConfig.dart';
+import 'listOffre_screen.dart';
 
 class OffreDetails extends StatefulWidget {
   final DocumentSnapshot offre;
@@ -13,6 +16,8 @@ class OffreDetails extends StatefulWidget {
 }
 
 class _OffreDetailsState extends State<OffreDetails> {
+  String auth = '';
+
   List<FacilityCard> facilities = [
     FacilityCard(asset: "assets/images/router.png",name: "Wifi" , param:"wifi" ,),
     FacilityCard(asset:"assets/images/clothes.png", name: "Laundry",param:"lave_ligne" ,),
@@ -23,6 +28,13 @@ class _OffreDetailsState extends State<OffreDetails> {
 
   @override
   Widget build(BuildContext context) {
+    UserServices().getUserId().then((value) {
+      setState(() {
+        auth = value;
+      });
+    });
+
+
     return LayoutBuilder(builder: (context, constraints) {
       return OrientationBuilder(builder: (context, orientation) {
         SizeConfig().init(constraints, orientation);
@@ -126,7 +138,7 @@ class _OffreDetailsState extends State<OffreDetails> {
                       child: Padding(
                         padding:  EdgeInsets.symmetric(
                             vertical: 2 * SizeConfig.heightMultiplier,
-                            horizontal: 4 * SizeConfig.widthMultiplier
+                            horizontal: 1 * SizeConfig.widthMultiplier
                         ),
                         child: Row(
                           children: <Widget>[
@@ -140,7 +152,7 @@ class _OffreDetailsState extends State<OffreDetails> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 3 * SizeConfig.widthMultiplier,),
+                    SizedBox(width: 1 * SizeConfig.widthMultiplier,),
                     Expanded(
                       child: Container(
                         decoration: BoxDecoration(
@@ -169,8 +181,28 @@ class _OffreDetailsState extends State<OffreDetails> {
                         ),
                       ),
                     ),
+                    SizedBox(width: 1 * SizeConfig.widthMultiplier,),
+                    auth == widget.offre["owner"] ?InkWell(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.grey[300],
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: Padding(
+                            padding:  EdgeInsets.symmetric(
+                                vertical: 2 * SizeConfig.heightMultiplier,
+                                horizontal: 1 * SizeConfig.widthMultiplier
+                            ),
+                            child: Icon(Icons.delete, color: Colors.red, size: 4 * SizeConfig.imageSizeMultiplier,)
+                        ),
+                      ),
+                      onTap: (){
+                        OffreServices().deleteOffer(widget.offre.documentID);
+                        Navigator.pop(context);
+                      },
+                    ):SizedBox(width: 0,)
                   ],
-                )
+                ),
               ],
             ),
           ),

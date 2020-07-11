@@ -2,18 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:student_coloco_ghoulami/Services/auth.dart';
 import 'package:student_coloco_ghoulami/Services/demand_service.dart';
-import 'package:student_coloco_ghoulami/Services/offre_service.dart';
 import 'package:student_coloco_ghoulami/Services/user_service.dart';
 import 'package:student_coloco_ghoulami/components/loading.dart';
 import 'package:student_coloco_ghoulami/components/rounded_button.dart';
 import 'package:student_coloco_ghoulami/components/rounded_input_field.dart';
 import 'package:student_coloco_ghoulami/models/demand.dart';
-import 'package:student_coloco_ghoulami/models/offre.dart';
-import 'package:student_coloco_ghoulami/util/constants.dart';
 import '../listDemand_screen.dart';
 import 'background.dart';
-import 'facilities_divider.dart';
-import 'package:multi_image_picker/multi_image_picker.dart';
+
 
 class Body extends StatefulWidget {
   @override
@@ -21,7 +17,6 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
   String error = '';
   Demand demand = Demand();
@@ -57,6 +52,7 @@ class _BodyState extends State<Body> {
                             hintText: "Title",
                             validator: (val) =>
                                 val.isEmpty ? 'Please enter the Title' : null,
+                            icon: Icons.title,
                             onChanged: (value) {
                               demand.title = value;
                             },
@@ -65,6 +61,7 @@ class _BodyState extends State<Body> {
                             hintText: "Adresse",
                             validator: (val) =>
                                 val.isEmpty ? 'Please enter the Adresse' : null,
+                            icon: Icons.location_on,
                             onChanged: (value) {
                               demand.adresse = value;
                             },
@@ -74,6 +71,7 @@ class _BodyState extends State<Body> {
                             validator: (val) => val.isEmpty
                                 ? 'Please enter the Superficie'
                                 : null,
+                            icon: Icons.text_fields,
                             onChanged: (value) {
                               demand.description = value;
                             },
@@ -82,6 +80,7 @@ class _BodyState extends State<Body> {
                             validator: (val) =>
                                 val.isEmpty ? 'Please enter the Price' : null,
                             hintText: "Maximal bedget",
+                            icon: Icons.attach_money,
                             onChanged: (value) {
                               demand.max_budget = double.parse(value);
                             },
@@ -93,6 +92,7 @@ class _BodyState extends State<Body> {
                                 ? 'Please entre a Phone number'
                                 : null,
                             hintText: "Phone",
+                            icon: Icons.phone_android,
                             onChanged: (value) {
                               demand.phone_number = value;
                             },
@@ -117,7 +117,7 @@ class _BodyState extends State<Body> {
                                 Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => ListOffer()));
+                                        builder: (context) => ListDemand()));
                               }
                             },
                           )

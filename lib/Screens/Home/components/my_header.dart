@@ -53,7 +53,7 @@ class _MyHeaderState extends State<MyHeader> {
                     top: 20 - widget.offset / 2,
                     left: 150,
                     child: Text(
-                      "USMS \nUniversité Sultan \nMoulay Slimane ",
+                      "USMS \nStudent-CoLoCo ",
                       style: kHeadingTextStyle.copyWith(
                         color: Colors.white,
                       ),

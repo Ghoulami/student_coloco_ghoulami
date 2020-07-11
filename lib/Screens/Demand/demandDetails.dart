@@ -1,28 +1,32 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:student_coloco_ghoulami/Services/demand_service.dart';
 import 'package:student_coloco_ghoulami/util/constants.dart';
+import '../../Services/auth.dart';
+import '../../Services/user_service.dart';
 import 'componenets/SizeConfig.dart';
+import 'listDemand_screen.dart';
 
-class OffreDetails extends StatefulWidget {
-  final DocumentSnapshot offre;
+class DemandDetails extends StatefulWidget {
+  final DocumentSnapshot demand;
 
-  const OffreDetails({Key key, this.offre}) : super(key: key);
+  const DemandDetails({Key key, this.demand}) : super(key: key);
 
   @override
-  _OffreDetailsState createState() => _OffreDetailsState();
+  _DemandDetailsState createState() => _DemandDetailsState();
 }
 
-class _OffreDetailsState extends State<OffreDetails> {
-  List<FacilityCard> facilities = [
-    FacilityCard(asset: "assets/images/router.png",name: "Wifi" , param:"wifi" ,),
-    FacilityCard(asset:"assets/images/clothes.png", name: "Laundry",param:"lave_ligne" ,),
-    FacilityCard(asset:"assets/images/bus.png", name: "Bus",param: "bus",),
-    FacilityCard(asset:"assets/images/tray.png", name: "Food",param:"food" ,),
-    FacilityCard(asset:"assets/images/gym.png", name: "Gym",param:"gym" ,),
-  ];
+class _DemandDetailsState extends State<DemandDetails> {
+   String auth = '';
 
   @override
   Widget build(BuildContext context) {
+    UserServices().getUserId().then((value) {
+      setState(() {
+        auth = value;
+      });
+    });
+
     return LayoutBuilder(builder: (context, constraints) {
       return OrientationBuilder(builder: (context, orientation) {
         SizeConfig().init(constraints, orientation);
@@ -35,6 +39,13 @@ class _OffreDetailsState extends State<OffreDetails> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 SizedBox(height: 5 * SizeConfig.heightMultiplier,),
+                Center(
+                  child: Text("Demand's Details", style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 2.5 * SizeConfig.textMultiplier,
+                      fontWeight: FontWeight.w600
+                  ),),
+                ),
                 Container(
                     width: MediaQuery.of(context).size.width,
                     height: 40 * SizeConfig.heightMultiplier,
@@ -47,74 +58,40 @@ class _OffreDetailsState extends State<OffreDetails> {
                           width:MediaQuery.of(context).size.width,
                           height: 40 * SizeConfig.heightMultiplier,
                           decoration: BoxDecoration(
-                              image: DecorationImage(image: NetworkImage(widget.offre["images"][index]),
-                                  fit: BoxFit.cover)
+                              image: DecorationImage(image: AssetImage("assets/images/rent_image/1_h123kc.jpg"))
                           ),
                         ),
                       ),
                       separatorBuilder: (context,index)=>SizedBox(width: 8,),
-                      itemCount: widget.offre["images"].length,
+                      itemCount: 1,
                     )
                 ),
                 SizedBox(height: 2 * SizeConfig.heightMultiplier,),
-                Text("Our Place : "+widget.offre["title"], style: TextStyle(
+                Text("Title : "+widget.demand["title"], style: TextStyle(
                     color: Colors.black,
                     fontSize: 3 * SizeConfig.textMultiplier,
                     fontWeight: FontWeight.w600
                 ),),
                 SizedBox(height: 2 * SizeConfig.heightMultiplier,),
-                Text("Adress :"+widget.offre["adresse"], style: TextStyle(
+                Text("Adress :"+widget.demand["adresse"], style: TextStyle(
                     color: kBodyTextColor,
                     fontSize: 3.1 * SizeConfig.textMultiplier,
                     fontWeight: FontWeight.w600
                 ),),
                 SizedBox(height: 1 * SizeConfig.heightMultiplier,),
-                Text("Capacite : "+widget.offre["capacite"].toString() + " Person", style: TextStyle(
+                Text("Description : "+widget.demand["description"], style: TextStyle(
                   color: kBodyTextColor,
                   fontSize: 3.1 * SizeConfig.textMultiplier,
                 ),),
-                Text("Superficie : "+widget.offre["superficie"].toString() + " M²", style: TextStyle(
+                Text("Date : "+(widget.demand["date"].toDate()).toString(), style: TextStyle(
                   color: kBodyTextColor,
                   fontSize: 3.1 * SizeConfig.textMultiplier,
                 ),),
-                Text("Date : "+(widget.offre["data"].toDate()).toString(), style: TextStyle(
-                  color: kBodyTextColor,
-                  fontSize: 3.1 * SizeConfig.textMultiplier,
-                ),),
-                Text("Phone : "+widget.offre["phone_number"], style: TextStyle(
+                Text("Phone N°: "+widget.demand["phone_number"], style: TextStyle(
                   color: kBodyTextColor,
                   fontSize: 3.1 * SizeConfig.textMultiplier,
                 ),),
                 SizedBox(height: 1 * SizeConfig.heightMultiplier,),
-                Text("Facilities", style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 2.5 * SizeConfig.textMultiplier,
-                    fontWeight: FontWeight.w600
-                ),),
-                SizedBox(height: 2 * SizeConfig.heightMultiplier,),
-                Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 60,
-                    child:ListView.separated(
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context,index)=>ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        child: widget.offre[this.facilities[index].param]? this.facilities[index]:VerticalDivider(width: 0,),
-                      ),
-                      separatorBuilder: (context,index)=>SizedBox(width: 8,),
-                      itemCount:this.facilities.length,
-                    )
-                ),
-                /*Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    _facilityCard("assets/images/router.png", "Wifi"),
-                    _facilityCard("assets/images/bus.png", "Bus"),
-                    _facilityCard("assets/images/tray.png", "Food"),
-                    _facilityCard("assets/images/gym.png", "Gym"),
-                    _facilityCard("assets/images/heater.png", "laundry"),
-                  ],
-                ),*/
                 SizedBox(height: 3 * SizeConfig.heightMultiplier,),
                 Row(
                   children: <Widget>[
@@ -126,7 +103,7 @@ class _OffreDetailsState extends State<OffreDetails> {
                       child: Padding(
                         padding:  EdgeInsets.symmetric(
                             vertical: 2 * SizeConfig.heightMultiplier,
-                            horizontal: 4 * SizeConfig.widthMultiplier
+                            horizontal: 1 * SizeConfig.widthMultiplier
                         ),
                         child: Row(
                           children: <Widget>[
@@ -140,7 +117,7 @@ class _OffreDetailsState extends State<OffreDetails> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 3 * SizeConfig.widthMultiplier,),
+                    SizedBox(width: 1 * SizeConfig.widthMultiplier,),
                     Expanded(
                       child: Container(
                         decoration: BoxDecoration(
@@ -155,12 +132,12 @@ class _OffreDetailsState extends State<OffreDetails> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              Text("Price", style: TextStyle(
+                              Text("Max Budget", style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w600,
                                   fontSize: 2 * SizeConfig.textMultiplier
                               ),),
-                              Text("MAD "+widget.offre["prix"].toString(), style: TextStyle(
+                              Text("MAD "+widget.demand["max_budget"].toString(), style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 2 * SizeConfig.textMultiplier
                               ),),
@@ -169,6 +146,26 @@ class _OffreDetailsState extends State<OffreDetails> {
                         ),
                       ),
                     ),
+                    SizedBox(width: 1 * SizeConfig.widthMultiplier,),
+                    auth == widget.demand["owner"] ?InkWell(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.grey[300],
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: Padding(
+                            padding:  EdgeInsets.symmetric(
+                                vertical: 2 * SizeConfig.heightMultiplier,
+                                horizontal: 1 * SizeConfig.widthMultiplier
+                            ),
+                            child: Icon(Icons.delete, color: Colors.red, size: 4 * SizeConfig.imageSizeMultiplier,)
+                        ),
+                      ),
+                      onTap: (){
+                        DemandService().deleteDemand(widget.demand.documentID);
+                        Navigator.pop(context);
+                      },
+                    ):SizedBox(width: 0,)
                   ],
                 )
               ],

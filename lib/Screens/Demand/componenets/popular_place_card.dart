@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:student_coloco_ghoulami/Screens/Offre/offreDetails.dart';
 import 'package:student_coloco_ghoulami/util/constants.dart';
+import '../demandDetails.dart';
 
 class PopularPlaceCard extends StatelessWidget {
-  final DocumentSnapshot offre;
-  PopularPlaceCard({ this.offre});
+  final DocumentSnapshot demand;
+  PopularPlaceCard({ this.demand});
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +31,8 @@ class PopularPlaceCard extends StatelessWidget {
                     bottom: 12.0,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(12.0),
-                      child: Image.network(
-                        offre["images"][0],
+                      child: Image.asset(
+                        "assets/images/rent_image/1_h123kc.jpg",
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -46,23 +46,6 @@ class PopularPlaceCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12.0),
                       ),
                       color: kBlue,
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 8.0,
-                          vertical: 2.0,
-                        ),
-                        child: Row(
-                          children: <Widget>[
-                            Icon(
-                              Icons.star,
-                              size: 10.0,
-                              color: kWhite,
-                            ),
-                            SizedBox(width: 3.0),
-                            Text("4.5", style: kRatingStyle)
-                          ],
-                        ),
-                      ),
                     ),
                   ),
                 ],
@@ -75,12 +58,12 @@ class PopularPlaceCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text(offre["title"], style: kTitleStyle, maxLines: 1),
-                    Text(offre["adresse"], style: kSubtitleStyle),
+                    Text(demand["title"], style: kTitleStyle, maxLines: 1),
+                    Text(demand["adresse"], style: kSubtitleStyle),
                     Row(
                       children: <Widget>[
                         Text(
-                          offre["superficie"].toString()+"m²",
+                          (demand["date"].toDate()).toString(),
                           maxLines: 1,
                           style: kSubtitleStyle.copyWith(
                             color: kBlack.withOpacity(1.0),
@@ -88,10 +71,6 @@ class PopularPlaceCard extends StatelessWidget {
                           ),
                         ),
                         Spacer(),
-                        Text(
-                          "${offre["prix"]}MD",
-                          style: kTitleStyle.copyWith(color: kBlue),
-                        )
                       ],
                     ),
                   ],
@@ -106,7 +85,7 @@ class PopularPlaceCard extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) {
-              return OffreDetails(offre: this.offre);
+              return DemandDetails(demand: this.demand);
             },
           ),
         );

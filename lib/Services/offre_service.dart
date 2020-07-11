@@ -42,4 +42,8 @@ class OffreServices {
     String url = dowurl.toString();
     return url;
   }
+
+  Future deleteOffer(String documentId) async {
+    await this.offerCollection.document(documentId).delete();
+  }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:student_coloco_ghoulami/Screens/Offre/componenets/body.dart';
+
+import '../Demand/componenets/body.dart';
 
 class AddDemandScreen extends StatelessWidget {
   @override

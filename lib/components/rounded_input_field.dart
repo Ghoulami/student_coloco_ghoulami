@@ -11,7 +11,7 @@ class RoundedInputField extends StatefulWidget {
     this.helperText,
     this.onChanged,
     this.validator,
-    this.onFieldSubmitted, this.keyboardType,
+    this.onFieldSubmitted, this.keyboardType, this.icon,
   });
 
   final Key fieldKey;
@@ -23,6 +23,7 @@ class RoundedInputField extends StatefulWidget {
   final FormFieldValidator<String> validator;
   final ValueChanged<String> onFieldSubmitted;
   final TextInputType keyboardType;
+  final IconData icon;
 
 
   @override
@@ -46,7 +47,7 @@ class _RoundedInputFieldState extends State<RoundedInputField> {
         decoration: InputDecoration(
           hintText: hintText,
           icon: Icon(
-            Icons.person,
+            widget.icon,
             color: kPrimaryColor,
           ),
           border: InputBorder.none,
