@@ -47,6 +47,7 @@ class _BodyState extends State<Body> {
                   RoundedInputField(
                     validator: (val) => val.isEmpty ? 'Enter an email' : null,
                     hintText: "Your Email",
+                    icon: Icons.email,
                     onChanged: (value) {
                       _email = value;
                     },

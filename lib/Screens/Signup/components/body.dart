@@ -47,6 +47,7 @@ class _BodyState extends State<Body> {
                 children: [
                   RoundedInputField(
                     hintText: "Your Last Name",
+                    icon: Icons.account_circle,
                     validator: (val) => val.isEmpty ? 'Enter a last name' : null,
                     onChanged: (value) {
                       user.last_name = value;
@@ -54,6 +55,7 @@ class _BodyState extends State<Body> {
                   ),
                   RoundedInputField(
                     hintText: "Your Fisrt Name",
+                    icon: Icons.account_circle,
                     validator: (val) => val.isEmpty ? 'Enter a fisrt name' : null,
                     onChanged: (value) {
                       user.fist_name = value;
@@ -62,6 +64,7 @@ class _BodyState extends State<Body> {
                   RoundedInputField(
                     validator: (val) => val.isEmpty ? 'Enter an email' : null,
                     hintText: "Your Email",
+                    icon: Icons.alternate_email,
                     onChanged: (value) {
                       user.email = value;
                     },
